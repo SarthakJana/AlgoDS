@@ -6,29 +6,27 @@ import java.util.Map;
 public class LongestSubStringWithDistinctCharacters {
 
     private static int findLongestSubString(String string, int k) {
-        Map<Character, Integer> charMap = new HashMap<>();
-        int left = 0;
         int maxLength = Integer.MIN_VALUE;
+        int ws = 0;
+        Map<Character, Integer> map = new HashMap<>();
 
-        for (int end = 0; end < string.length(); end++) {
-            char c = string.charAt(end);
-            charMap.put(c, charMap.getOrDefault(c, 0) + 1);
+        for (int we = 0; we < string.length(); we++) {
+            char c = string.charAt(we);
+            map.put(c, map.getOrDefault(c, 0) + 1);
 
-            if (charMap.size() == k) {
-                maxLength = Math.max(maxLength, end - left + 1);
-            } else if (charMap.size() > k) {
-                while (charMap.size() > k) {
-                    char s = string.charAt(left);
-                    if (charMap.get(s) == 1) {
-                        charMap.remove(s);
+            if (map.size() == k) {
+                maxLength = Math.max(maxLength, we - ws + 1);
+            } else if (map.size() > k) {
+                while (map.size() > k) {
+                    if (map.get(string.charAt(ws)) == 1) {
+                        map.remove(string.charAt(ws));
                     } else {
-                        charMap.put(s, charMap.get(s) - 1);
+                        map.put(string.charAt(ws), map.get(string.charAt(ws)) - 1);
                     }
 
-                    left++;
+                    ws++;
                 }
             }
-
         }
 
         return maxLength;

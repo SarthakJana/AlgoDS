@@ -1,34 +1,42 @@
 package slidingwindow;
 
 /**
- * Find max sun sub array of size K
- * input array: [4, 2, 1, 7, 8, 1, 2, 8, 1, 0]
- * max sum: 16(7, 8, 1)
+ * LC 53:
+ * Given an integer array nums, find the subarray
+ * with the largest sum, and return its sum.
  *
- * T(n) = O(n)
+ * Example 1:
+ *
+ * Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+ * Output: 6
+ * Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+ * Example 2:
+ *
+ * Input: nums = [1]
+ * Output: 1
+ * Explanation: The subarray [1] has the largest sum 1.
+ * Example 3:
+ *
+ * Input: nums = [5,4,-1,7,8]
+ * Output: 23
+ * Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
  */
 public class MaximumSubArraySum {
 
-    public static int findMaxSum(int[] arr, int k) {
-        int currSum = 0;
+    public int maxSubArray(int[] nums) {
         int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+        int windowStart = 0;
 
-        for (int i = 0; i < arr.length; i++) {
-            currSum += arr[i];
+        for (int num : nums) {
+            currSum += num;
 
-            if (i >= k - 1) {
-                maxSum = Math.max(maxSum, currSum);
-                currSum -= arr[i - (k - 1)];
+            maxSum = Math.max(maxSum, currSum);
+            if (currSum < 0) {
+                currSum = 0;
             }
         }
 
         return maxSum;
-    }
-
-    //Time Complexity = O(n)
-
-
-    public static void main(String[] args) {
-        System.out.println(MaximumSubArraySum.findMaxSum(new int[]{4, 2, 1, 7, 8, 1, 2, 8, 1, 0}, 3));
     }
 }

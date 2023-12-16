@@ -3,23 +3,22 @@ package slidingwindow;
 public class SmallestSubArrayWithGivenSum {
 
     public static int smallestSubArray(int[] arr, int target) {
-        int minWindowSize = Integer.MAX_VALUE;
+        int ws = 0;
+        int we = 0;
         int currSum = 0;
-        int start = 0;
+        int minWinSize = Integer.MAX_VALUE;
 
-        for (int end = 0; end < arr.length; end++) {
-            currSum += arr[end];
+        for ( int i = 0; i < arr.length; i++) {
+            currSum += arr[i];
+            we = i;
 
             while (currSum >= target) {
-                minWindowSize = Math.min(minWindowSize, end - start + 1);
-                currSum -= arr[start];
-                start++;
+                minWinSize = Math.min(we - ws + 1, minWinSize);
+                currSum -= arr[ws++];
             }
         }
-        //4, 2, 2, 7, 8, 1, 2, 8, 10
 
-
-        return minWindowSize;
+        return minWinSize;
     }
 
     public static void main(String[] args) {
