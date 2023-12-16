@@ -2,19 +2,19 @@ package array;
 
 public class Anagram {
 
-    public static boolean isAnagram(String a, String b) {
+    public static boolean isAnagram(String s, String t) {
 
         final int CHAR = 256;
         int[] count = new int[CHAR];
         boolean isAnagram = true;
 
-        if (a.length() != b.length()) {
+        if (s.length() != t.length()) {
            isAnagram = false;
         }
 
-        for (int i = 0; i < a.length(); i++) {
-            count[a.charAt(i)]++;
-            count[b.charAt(i)]--;
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i)]++;
+            count[t.charAt(i)]--;
         }
 
         for (int i = 0; i < CHAR; i++) {
@@ -24,5 +24,10 @@ public class Anagram {
         }
 
         return isAnagram;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Is anagram " + isAnagram("silent", "listen"));
+
     }
 }
